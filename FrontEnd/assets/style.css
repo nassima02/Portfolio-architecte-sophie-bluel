@@ -186,3 +186,27 @@ footer nav ul {
 	margin: 2em
 }
 
+
+/*********************
+ creation du filtre
+**********************/
+.filter{
+	display: flex;
+	justify-content: center;
+	padding: 51px 0;
+}
+button {
+	font-family: 'Syne';
+	padding: 9px 28px;
+	margin: 5px;
+	border-radius: 60px;
+	color: #1D6154;
+	background-color: white;
+	border: solid 1px;
+}
+
+.selected {
+	background-color: #1D6154;
+	color:white;
+}
+
