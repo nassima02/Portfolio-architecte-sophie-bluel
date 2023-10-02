@@ -44,13 +44,14 @@ function generateWorksInHtml(works) {
     gallery.innerHTML = '';
 
     works.forEach(work => {
+
         const figure = document.createElement("figure");
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;
         imageElement.alt = work.name;
 
         const titleElement = document.createElement("figcaption");
-        titleElement.innerText = work.name;
+        titleElement.innerText = work.title;
 
         figure.appendChild(imageElement);
         figure.appendChild(titleElement);
