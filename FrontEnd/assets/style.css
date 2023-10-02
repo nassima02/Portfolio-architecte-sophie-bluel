@@ -8,9 +8,7 @@ body {
 header {
     display: flex;
     justify-content: space-between;
-    margin: 50px 0;
-    max-width: 1140px;
-    align-items: center;
+    margin: 50px 0
 }
 
 footer {
@@ -49,6 +47,7 @@ nav ul {
     display: flex;
     align-items: center;
     list-style-type: none;
+
 }
 
 nav li {
@@ -89,7 +88,7 @@ li:hover {
 
 #portfolio h2 {
     text-align: center;
-    margin-top: 118px;
+    margin-bottom: 1em;
 }
 
 .gallery {
@@ -102,6 +101,7 @@ li:hover {
 
 .gallery img {
     width: 100%;
+
 }
 
 #contact {
@@ -111,6 +111,7 @@ li:hover {
 
 #contact > * {
     text-align: center;
+
 }
 
 #contact h2 {
@@ -157,9 +158,9 @@ footer nav ul {
     margin: 2em
 }
 
-/*******************************
- Style du filtre des catégories
-******************************/
+/*********************
+ Style filtre
+**********************/
 .filter {
     display: flex;
     justify-content: center;
@@ -181,9 +182,9 @@ button {
     color: white;
 }
 
-/*************************
-style de la page de login
-**************************/
+/******************
+style login
+*******************/
 a {
     text-decoration: none;
     color: black;
@@ -193,6 +194,9 @@ a {
     background-color: #FFFEF8;
     max-width: 1140px;
     padding: 1px 150px;
+    /*font-family: 'Work Sans';*/
+    /*font-size: 14px;*/
+
 }
 
 .footerContainer {
@@ -200,60 +204,16 @@ a {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: white;
+    background-color: white
 }
 
 .mainContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 100px;
-    padding-bottom: 160px;
+    margin-top: 150px;
 }
 
 #message {
     color: red;
-}
-
-/*************
-works - edit
-**************/
-
-/*****banner*****/
-.banner {
-    display: flex;
-    justify-content: center;
-    background-color: #131313;
-    height: 59px;
-    margin: auto;
-    align-items: center;
-    padding: 1px 150px;
-    color: white;
-}
-
-.bannerHidden {
-    display: none;
-}
-
-.fa-regular {
-    margin: 5px 10px 5px 31px;
-}
-
-/******lien modifié*****/
-.modaleLinck {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    height: 138px;
-}
-
-#edit {
-    display: flex;
-    margin: 5px 0;
-}
-
-.h2 {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
 }
