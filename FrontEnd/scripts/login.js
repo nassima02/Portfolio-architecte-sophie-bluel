@@ -1,3 +1,4 @@
+
 const loginForm = document.getElementById("loginForm");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
@@ -16,7 +17,7 @@ loginForm.addEventListener("submit", async function (e) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({email, password}),
+            body: JSON.stringify({ email, password }),
         });
 
         if (response.ok) {
@@ -27,12 +28,11 @@ loginForm.addEventListener("submit", async function (e) {
             // Stockez le jeton dans le local storage
             localStorage.setItem("token", token);
 
-            // Redirigez l'utilisateur vers la page "index.html" en mode édition
+            // Redirigez l'utilisateur vers la page "homepage.html" pas créer pour l'instant
             window.location.href = "index.html";
         } else {
             // Affichez un message d'erreur en cas d'échec de la connexion
             message.textContent = "Votre identifiant ou mot de passe est incorrect. Veuillez réessayer.";
-            localStorage.removeItem("token");
         }
     } catch (error) {
         console.error("Une erreur s'est produite lors de la connexion :", error);
