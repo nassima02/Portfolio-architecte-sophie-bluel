@@ -18,7 +18,7 @@ export async function initHomepage() {
  * Cette fonction Récupère les travaux à partir d'une API en utilisant la fonction fetch.
  * @async
  * @function fetchWorks
- * @param {string} urlApi - L'URL de l'API à partir de laquelle les travaux sont récuperé.
+ * @param {string} - L'URL de l'API à partir de laquelle les travaux sont récuperé.
  * @returns {Promise<Array>} Une promesse résolue avec un tableau d'objets représentant les travaux de l'architecte.
  */
 async function fetchWorks() {
@@ -27,8 +27,8 @@ async function fetchWorks() {
         if (!response.ok) {
             throw new Error("Une erreur s'est produite lors de la récupération des données.");
         }
-        const works = await response.json();
-        return works;
+      //  const works = await response.json();
+        return await response.json();
     } catch (error) {
         console.error("Une erreur s'est produite : ", error);
         return [];
@@ -126,6 +126,7 @@ function selectedCategoryButton() {
  * Elle met en évidence le bouton cliqué, désélectionne les autres boutons et génère les travaux en fonction de la catégorie sélectionnée.
  * @function onClickButtonCategory
  * @param {Event} event - L'objet d'événement représentant le clic sur le bouton de catégorie.
+ * @param {HTMLButtonElement} event.target - Le bouton HTML sur lequel l'événement a été déclenché.
  */
 function onClickButtonCategory(event) {
     const categoryButtons = document.querySelectorAll('.filter button');
@@ -149,7 +150,7 @@ function onClickButtonCategory(event) {
  */
 function generateWorksCaterogies(wCategory) {
     fetchWorks().then((works) => {
-        let filteredWorks = [];
+        let filteredWorks;
 
         switch (wCategory) {
             case 'Tous':
