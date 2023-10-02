@@ -1,4 +1,4 @@
 
-import {init} from "./works.js"
+import {initHomepage} from "./works.js"
 
-init();
+initHomepage();
