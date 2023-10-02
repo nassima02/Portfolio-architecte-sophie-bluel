@@ -158,9 +158,9 @@ footer nav ul {
     margin: 2em
 }
 
-/*********************
- Style filtre
-**********************/
+/*******************************
+ Style du filtre des catégories
+******************************/
 .filter {
     display: flex;
     justify-content: center;
@@ -183,7 +183,7 @@ button {
 }
 
 /******************
-style login
+style page de login
 *******************/
 a {
     text-decoration: none;
