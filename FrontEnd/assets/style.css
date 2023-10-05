@@ -257,3 +257,100 @@ works - edit
     justify-content: center;
     align-items: flex-end;
 }
+
+/********************
+style de la modale
+*********************/
+.modal {
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #0000004D;
+    position: fixed;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5% auto;
+    width: 630px;
+    height: 688px;
+    top: 200px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    position: relative;
+}
+
+.modalHeader {
+    font-size: 26px;
+}
+
+.close {
+    font-size: 30px;
+    padding: 30px;
+    right: 0;
+    cursor: pointer;
+    position: absolute;
+}
+
+.modalTitle {
+    font-size: 24px;
+    font-weight: 400;
+    color: #000000;
+    padding: 60px 0 46PX 0;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: center;
+    width: 420px;
+    border-top: 1px solid #B3B3B3;
+    bottom: 0;
+    position: absolute;
+}
+
+.modalButton {
+    width: 237px;
+    height: 36px;
+    margin: 38px;
+    border-radius: 60px;
+    background-color: #1D6154;
+    color: white;
+}
+
+.modalBody {
+    overflow: auto;
+    width: 420px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 29px 9px;
+}
+
+.modalBody figure {
+    position: relative;
+}
+
+.modalBody img {
+    width: 100%;
+}
+
+
+.trash-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    background-color: rgb(19, 19, 19);
+    cursor: pointer;
+    color: white;
+    border-radius: 2px;
+    margin: 6px 5px;
+    font-size: 8px;
+}

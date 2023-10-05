@@ -59,7 +59,6 @@ function toggleLoginLogout() {
     if (token) {
         // Si connecté, changez le texte en "logout"
         buttonLoginLogout.textContent = "logout";
-        console.log(buttonLoginLogout.textContent)
         buttonLoginLogout.href = "./index.html";
         localStorage.removeItem("token");
     } else {
@@ -76,7 +75,7 @@ function toggleLoginLogout() {
  * @param {string} - L'URL de l'API à partir de laquelle les travaux sont récuperé.
  * @returns {Promise<Array>} Une promesse résolue avec un tableau d'objets représentant les travaux de l'architecte.
  */
-async function fetchWorks() {
+export async function fetchWorks() {
 
     try {
         const response = await fetch(urlApi);

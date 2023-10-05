@@ -12,6 +12,7 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/reset.css">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script type="module" src="./scripts/modal.js"></script>
 	<script type="module" src="./scripts/main.js"></script>
 	<script type="module" src="./scripts/works.js"></script>
 	<script type="module" src="./scripts/login.js"></script>
@@ -57,7 +58,8 @@
 				<h2>Mes Projets </h2>
 				<div class="modaleLinck">
 					<i class="fa-regular fa-pen-to-square"></i>
-					<a id="edit" href="#">modifier</a>
+					<!-- lien d'ouverture de la modeal galerie photo ------->
+					<a id="edit" href="#" role="button">modifier</a>
 				</div>
 			</div>
 			<form class="filter">
@@ -81,7 +83,24 @@
 			</form>
 		</section>
 
+		<!--/********************* code fenettre modale galerie photo**********************************/-->
+		<div id="myModal" class="modal" role="dialog">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<div class="modalHeader">
+					<p class="modalTitle">Galerie photo</p>
+				</div>
+				<div class="modalBody">
+				</div>
+				<div class="modalFooter">
+					<button class="modalButton"  >Ajouter une photo</button>
+				</div>
+			</div>
+		</div>
+		<!--/***************************fin******************************************/-->
+
 	</main>
+
 </div>
 
 <footer>
@@ -91,5 +110,6 @@
 		</ul>
 	</nav>
 </footer>
+
 </body>
 </html>
