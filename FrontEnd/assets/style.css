@@ -105,7 +105,7 @@ li:hover {
 }
 
 #contact {
-    width: 50%;
+    width: 379px;
     margin: auto;
 }
 
@@ -114,6 +114,7 @@ li:hover {
 }
 
 #contact h2 {
+    margin-top: 100px;
     margin-bottom: 20px;
 }
 
@@ -128,7 +129,7 @@ li:hover {
     height: 50px;
     font-size: 1.2em;
     border: none;
-    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 #contact label {
@@ -137,18 +138,7 @@ li:hover {
 
 #contact textarea {
     border: none;
-    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-
-input[type="submit"] {
-    font-family: 'Syne';
-    font-weight: 700;
-    color: white;
-    background-color: #1D6154;
-    margin: 2em auto;
-    width: 180px;
-    text-align: center;
-    border-radius: 60px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 footer nav ul {
@@ -185,7 +175,6 @@ button {
 style de la page de login
 **************************/
 a {
-    text-decoration: none;
     color: black;
 }
 
@@ -215,6 +204,22 @@ a {
     color: red;
 }
 
+.instaIcon {
+    width: 19px;
+}
+
+.submitButton {
+    width: 179px;
+    margin: 37px 0 28px 0;
+    border-radius: 60px;
+    background: #1D6154;
+    color: white;
+}
+
+.submitButton{
+    align-self: center;
+}
+
 /*************
 works - edit
 **************/
@@ -239,8 +244,10 @@ works - edit
     margin: 5px 10px 5px 31px;
 }
 
-/******lien modifié*****/
-.modaleLinck {
+/*******************************************
+lien d'ouverture de la modal galerie photo
+********************************************/
+.modalLink {
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -256,4 +263,185 @@ works - edit
     display: flex;
     justify-content: center;
     align-items: flex-end;
+}
+
+/********************
+style de la modale1
+*********************/
+.modal {
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #0000004D;
+    position: fixed;
+}
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+    width: 630px;
+    height: 688px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    position: relative;
+}
+
+.modalHeader {
+    font-size: 26px;
+}
+
+.close {
+    font-size: 30px;
+    padding: 30px;
+    right: 0;
+    cursor: pointer;
+    position: absolute;
+}
+
+.modalTitle {
+    font-size: 24px;
+    font-weight: 400;
+    color: #000000;
+    padding: 60px 0 46PX 0;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: center;
+    width: 420px;
+    border-top: 1px solid #B3B3B3;
+    bottom: 0;
+    position: absolute;
+}
+
+.modalButton {
+    width: 237px;
+    height: 36px;
+    margin: 38px;
+    border-radius: 60px;
+    background-color: #1D6154;
+    color: white;
+}
+
+.modalBody {
+    overflow: auto;
+    width: 420px;
+    padding: 0 10px 20px 10px;
+}
+
+.modalBodyGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 29px 9px;
+}
+
+.modalBody figure {
+    position: relative;
+}
+
+.modalBody img {
+    width: 100%;
+}
+
+.trash-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    background-color: rgb(19, 19, 19);
+    cursor: pointer;
+    color: white;
+    border-radius: 2px;
+    margin: 6px 5px;
+    font-size: 8px;
+}
+
+/********************
+style de la modale2
+*********************/
+.modalBodyAddPicture {
+    display: flex;
+    flex-direction: column;
+}
+
+.addPicture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 3px;
+    background: #E8F1F6;
+    padding: 0 13px;
+    margin-bottom: 23px;
+}
+
+.imageLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.imageLabel img {
+    width: 76px;
+    margin: 0;
+}
+
+.addPictureButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 173px;
+    height: 36px;
+    border-radius: 50px;
+    background: #CBD6DC;
+    color: #306685;
+    font-size: 14px;
+    border: none;
+}
+#imagePreview{
+    width: 126px;
+}
+
+#modalAdd input {
+    height: 51px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 14px 0 #00000017;
+    border: none;
+}
+
+#modalAdd label {
+    font-size: 14px;
+    margin: 21px 0 10px 0;
+}
+
+#category {
+    height: 51px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 14px 0 #00000017;
+    border: none;
+    color: #6C6C6C;
+}
+
+.arrowBack {
+    display: flex;
+}
+
+.fa-arrow-left {
+    font-size: 20px;
+    padding: 30px;
+    left: 0;
+    cursor: pointer;
+    position: absolute
+}
+
+.hidden {
+    display: none;
 }
