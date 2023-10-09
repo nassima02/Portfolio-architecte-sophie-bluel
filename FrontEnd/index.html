@@ -36,7 +36,7 @@
 		</nav>
 	</header>
 
-	<main>
+	<div>
 		<section id="introduction">
 			<figure>
 				<img src="./assets/images/sophie-bluel.png" alt="">
@@ -56,7 +56,7 @@
 		<section id="portfolio">
 			<div class="h2">
 				<h2>Mes Projets </h2>
-				<div class="modaleLinck">
+				<div class="modalLinck">
 					<i class="fa-regular fa-pen-to-square"></i>
 					<!-- lien d'ouverture de la modeal galerie photo ------->
 					<a id="edit" href="#" role="button">modifier</a>
@@ -83,33 +83,77 @@
 			</form>
 		</section>
 
-		<!--/********************* code fenettre modale galerie photo**********************************/-->
+		<!--/********************* Code fenettres modal **********************************/-->
+
 		<div id="myModal" class="modal" role="dialog">
-			<div class="modal-content">
-				<span class="close">&times;</span>
+
+			<div class="modalContent">
+
+				<div class="arrowBack">
+					<i class="fa-solid fa-arrow-left"></i>
+				</div>
+
+				<div class="close">&times;</div>
+
+				<!----------------------modal 1  galerie photo----------------------------->
+
 				<div class="modalHeader">
-					<p class="modalTitle">Galerie photo</p>
+					<p class="modalTitle" style="display: none;">Galerie photo</p>
+					<p class="modalTitle">Ajout photo</p>
 				</div>
-				<div class="modalBody">
+
+				<div class="modalBody modalBodyGrid" id="modalGallery">
 				</div>
+
+				<!----------------------modal 2 Ajout photo----------------------------->
+
+				<div class="modalBody modalBodyAddPicture" id="pictureForm">
+					<div class="addPicture">
+						<label class="picture">
+							<img src="./assets/icons/picture.svg"
+								 alt=""><br>
+							<span class="addPictureButton">+ Ajouter photo</span>
+							<input type="file" id="photo" name="+ Ajouter photo" accept="image/*" style="display: none"><br>
+							<span> jpg, png : 4mo max </span>
+						</label>
+						<img id="imagePreview" src="" alt="Aperçu de l'image">
+					</div>
+
+					<label for="title">Titre</label>
+					<input type="text" id="title" name="title">
+
+					<label for="category">Catégorie</label>
+					<select id="category" name="category">
+						<option value=""></option>
+						<option value="Objets">Objets</option>
+						<option value="Appartements">Appartements</option>
+						<option value="Hotel et restaurants">Hotel et restaurants</option>
+					</select>
+				</div>
+
 				<div class="modalFooter">
-					<button class="modalButton"  >Ajouter une photo</button>
+					<button class="modalButton" id="validateModalButton" style="background: #A7A7A7;">Valider</button>
+					<button class="modalButton" id="addModalButton">Ajouter une photo</button>
 				</div>
+
+				<!--/**************************** Fin modal2 ***************************-->
 			</div>
 		</div>
-		<!--/***************************fin******************************************/-->
 
-	</main>
 
-</div>
+		<!--*************************** Fin code des modals ******************************************/-->
 
-<footer>
-	<nav>
-		<ul>
-			<li>Mentions Légales</li>
-		</ul>
-	</nav>
-</footer>
+		</main>
+
+	</div>
+
+	<footer>
+		<nav>
+			<ul>
+				<li>Mentions Légales</li>
+			</ul>
+		</nav>
+	</footer>
 
 </body>
 </html>

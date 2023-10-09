@@ -239,8 +239,9 @@ works - edit
     margin: 5px 10px 5px 31px;
 }
 
-/******lien modifié*****/
-.modaleLinck {
+/******
+lien d'ouverture de la modale galerie photo*****/
+.modalLinck {
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -259,7 +260,7 @@ works - edit
 }
 
 /********************
-style de la modale
+style de la modale1
 *********************/
 .modal {
     display: none;
@@ -271,7 +272,7 @@ style de la modale
     position: fixed;
 }
 
-.modal-content {
+.modalContent {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -325,6 +326,10 @@ style de la modale
 .modalBody {
     overflow: auto;
     width: 420px;
+    padding: 0 10px 20px 10px;
+}
+
+.modalBodyGrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 29px 9px;
@@ -337,7 +342,6 @@ style de la modale
 .modalBody img {
     width: 100%;
 }
-
 
 .trash-icon {
     display: flex;
@@ -353,4 +357,81 @@ style de la modale
     border-radius: 2px;
     margin: 6px 5px;
     font-size: 8px;
+}
+/********************
+style de la modale2
+*********************/
+.modalBodyAddPicture {
+    display: flex;
+    flex-direction: column;
+}
+
+.addPicture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 3px;
+    background: #E8F1F6;
+    padding: 0 13px;
+    margin-bottom: 23px;
+}
+
+.picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.picture img {
+    width: 76px;
+    margin: 0;
+}
+
+.addPictureButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 173px;
+    height: 36px;
+    border-radius: 50px;
+    background: #CBD6DC;
+    color: #306685;
+    font-size: 14px;
+    border: none;
+}
+#imagePreview{
+    width: 126px;
+}
+
+#pictureForm input {
+    height: 51px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 14px 0 #00000017;
+    border: none;
+}
+
+#pictureForm label {
+    font-size: 14px;
+    margin: 21px 0 10px 0;
+}
+
+#category {
+    height: 51px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 14px 0 #00000017;
+    border: none;
+    color: #6C6C6C;
+}
+
+.arrowBack {
+    display: flex;
+}
+
+.fa-arrow-left {
+    font-size: 20px;
+    padding: 30px;
+    left: 0;
+    cursor: pointer;
+    position: absolute
 }

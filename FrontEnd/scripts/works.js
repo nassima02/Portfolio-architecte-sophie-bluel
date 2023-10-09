@@ -32,8 +32,8 @@ function showBanner() {
     const bannerElements = document.querySelector('.banner');
     bannerElements.style.display = 'flex';
 
-    const modaleLinck = document.querySelector('.modaleLinck');
-    modaleLinck.style.display = 'flex';
+    const modalLinck = document.querySelector('.modalLinck');
+    modalLinck.style.display = 'flex';
 }
 
 /**
@@ -44,8 +44,8 @@ function hideBanner() {
     const bannerElements = document.querySelector('.banner');
     bannerElements.style.display = 'none';
 
-    const modaleLinck = document.querySelector('.modaleLinck');
-    modaleLinck.style.display = 'none';
+    const modalLinck = document.querySelector('.modalLinck');
+    modalLinck.style.display = 'none';
 }
 
 /**
