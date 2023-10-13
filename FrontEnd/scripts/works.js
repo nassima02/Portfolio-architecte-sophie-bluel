@@ -60,11 +60,17 @@ function toggleLoginLogout() {
         // Si connecté, changez le texte en "logout"
         buttonLoginLogout.textContent = "logout";
         buttonLoginLogout.href = "./index.html";
-        localStorage.removeItem("token");
+        buttonLoginLogout.addEventListener('click', (event) => {
+            event.preventDefault();
+            localStorage.removeItem('token');
+            window.location.href = "index.html";
+            // window.location.reload();
+        })
     } else {
         // Si non connecté, laissez le texte comme "login" avec le lien d'origine
         buttonLoginLogout.textContent = "login";
         buttonLoginLogout.href = "./login.html";
+        localStorage.removeItem("token");
     }
 }
 
@@ -94,7 +100,7 @@ export async function fetchWorks() {
  * Cette fonction Génère du contenu HTML pour afficher la galerie des travaux.
  * @param {Array} works - Un tableau d'objets représentant les travaux à afficher.
  */
-function generateWorksInHtml(works) {
+export function generateWorksInHtml(works) {
 
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = '';

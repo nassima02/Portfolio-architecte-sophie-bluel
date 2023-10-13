@@ -32,7 +32,7 @@ loginForm.addEventListener("submit", async function (event) {
         } else {
             // Affichez un message d'erreur en cas d'échec de la connexion
             message.textContent = "Votre identifiant ou mot de passe est incorrect. Veuillez réessayer.";
-            // localStorage.removeItem("token");
+            localStorage.removeItem("token");
         }
     } catch (error) {
         console.error("Une erreur s'est produite lors de la connexion :", error);
