@@ -5,14 +5,13 @@ const urlApi = "http://localhost:5678/api/works";
 
 /**
  * Initialise la page d'accueil en fonction de l'état de connexion de l'utilisateur.
- * @param {Array} allWorks - Un tableau contenant les travaux récupérées depuis l'API works.
  */
 export async function initHomepage() {
 
-    const allWorks = await fetchWorks();// Récupère toutes les travaux depuis l'API works.
+    const allWorks = await fetchWorks();// Récupère tous les travaux depuis l'API works.
     const token = localStorage.getItem("token");// Récupère le token d'authentification stocké localement.
 
-    generateWorksInHtml(allWorks);// Génère le contenu HTML pour afficher toutes les travaux dans la galerrie.
+    generateWorksInHtml(allWorks);// Génère le contenu HTML pour afficher tout les travaux dans la galerie.
 
     if (token) {
         showBanner(); // Si l'utilisateur est connecté (un token est présent), affiche la bannière.
@@ -32,8 +31,8 @@ function showBanner() {
     const bannerElements = document.querySelector('.banner');
     bannerElements.style.display = 'flex';
 
-    const modalLinck = document.querySelector('.modalLinck');
-    modalLinck.style.display = 'flex';
+    const modalLink = document.querySelector('.modalLink');
+    modalLink.style.display = 'flex';
 }
 
 /**
@@ -44,8 +43,8 @@ function hideBanner() {
     const bannerElements = document.querySelector('.banner');
     bannerElements.style.display = 'none';
 
-    const modalLinck = document.querySelector('.modalLinck');
-    modalLinck.style.display = 'none';
+    const modalLink = document.querySelector('.modalLink');
+    modalLink.style.display = 'none';
 }
 
 /**
@@ -86,10 +85,11 @@ export async function fetchWorks() {
     try {
         const response = await fetch(urlApi);
         if (!response.ok) {
-            throw new Error("Une erreur s'est produite lors de la récupération des données.");
+            console.error("Une erreur s'est produite lors de la récupération des données.");
+            return [];
         }
-        //  const works = await response.json();
-        return await response.json();
+        return response.json(); // retourne un tableau contenant les works
+
     } catch (error) {
         console.error("Une erreur s'est produite : ", error);
         return [];
@@ -110,7 +110,7 @@ export function generateWorksInHtml(works) {
         const figure = document.createElement("figure");
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;
-        imageElement.alt = work.name;
+        imageElement.alt = work.title;
 
         const titleElement = document.createElement("figcaption");
         titleElement.innerText = work.title;
@@ -131,7 +131,7 @@ function generateFilterCategories(works) {
     const categoriesWorks = new Set();
     works.forEach((work) => categoriesWorks.add(work.category.name));
     const listWorksCategory = Array.from(categoriesWorks);
-    afficherButtonCategory(listWorksCategory);
+    generateButtonCategory(listWorksCategory);
 }
 
 /**
@@ -139,7 +139,7 @@ function generateFilterCategories(works) {
  * @function afficherButtonCategorie
  * @param {Array} listWorksCategory - Un tableau contenant les nom des catégories des travaux
  */
-function afficherButtonCategory(listWorksCategory) {
+function generateButtonCategory(listWorksCategory) {
 
     const filter = document.querySelector('.filter');
     filter.innerHTML = ''; // Effacer les boutons précédents
@@ -154,7 +154,6 @@ function afficherButtonCategory(listWorksCategory) {
     selectedCategoryButton();
 }
 
-
 /**
  * Cette fonction crée un boutton de catégorie.
  * @function createCategoryButton
@@ -162,16 +161,16 @@ function afficherButtonCategory(listWorksCategory) {
  */
 function createCategoryButton(categoryName) {
 
-    const buttonCategorie = document.createElement("button");
+    const buttonCategory = document.createElement("button");
 
     if (categoryName === "Tous") {
-        buttonCategorie.classList.toggle('selected');
+        buttonCategory.classList.toggle('selected');
     }
 
-    buttonCategorie.innerText = categoryName;
-    buttonCategorie.dataset.category = categoryName
-    buttonCategorie.type = "button";
-    return buttonCategorie;
+    buttonCategory.innerText = categoryName;
+    buttonCategory.dataset.category = categoryName
+    buttonCategory.type = "button";
+    return buttonCategory;
 }
 
 /**
@@ -204,12 +203,12 @@ function onClickButtonCategory(event) {
 
     button.classList.toggle('selected');
 
-    categoryButtons.forEach(b => {
-        if (b !== button) {
-            b.classList.remove('selected');
+    categoryButtons.forEach(btn => {
+        if (btn !== button) {
+            btn.classList.remove('selected');
         }
     });
-    generateWorksCaterogies(wCategory)
+    generateWorksCategories(wCategory)
 }
 
 /**
@@ -217,7 +216,7 @@ function onClickButtonCategory(event) {
  * @function generateWorksCaterogies
  * @param {string} wCategory - Le nom de la catégorie selectionnée.
  */
-function generateWorksCaterogies(wCategory) {
+function generateWorksCategories(wCategory) {
 
     fetchWorks().then((works) => {
         let filteredWorks;

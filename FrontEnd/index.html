@@ -30,7 +30,7 @@
                 <li>projets</li>
                 <li>contact</li>
                 <li><a id="loginLogout" href="./login.html">login</a></li>
-                <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+                <li><img src="./assets/icons/instagram.png" alt="Instagram" class="instaIcon"></li>
             </ul>
         </nav>
     </header>
@@ -55,9 +55,8 @@
         <section id="portfolio">
             <div class="h2">
                 <h2>Mes Projets </h2>
-                <div class="modalLinck">
+                <div class="modalLink"> <!-- lien d'ouverture de la modal galerie photo -->
                     <i class="fa-regular fa-pen-to-square"></i>
-                    <!-- lien d'ouverture de la modeal galerie photo ------->
                     <a id="edit" href="#" role="button">modifier</a>
                 </div>
             </div>
@@ -78,11 +77,12 @@
                 <input type="email" name="email" id="email">
                 <label for="message">Message</label>
                 <textarea name="message" id="message" cols="30" rows="10"></textarea>
-                <input type="submit" value="Envoyer">
+                <!--<input type="submit" value="Envoyer">-->
+                <button type="submit" class ="submitButton">Envoyer</button>
             </form>
         </section>
 
-        <!--/********************* Code fenettres modal **********************************/-->
+        <!--/***************************** Code fenêtres modal **********************************/-->
 
         <div id="myModal" class="modal" role="dialog">
 
@@ -94,25 +94,25 @@
 
                 <div class="close">&times;</div>
 
-                <!----------------------modal 1  galerie photo----------------------------->
+                <!--/*************************** modal-1  galerie photo **************************/-->
 
                 <div class="modalHeader">
-                    <p class="modalTitle" style="display: none;">Galerie photo</p>
-                    <p class="modalTitle">Ajout photo</p>
+                    <p class="modalTitle" id="modalTitle1">Galerie photo</p>
+                    <p class="modalTitle" id="modalTitle2" style="display: none;">Ajout photo</p>
                 </div>
 
                 <div class="modalBody modalBodyGrid" id="modalGallery">
                 </div>
 
-                <!----------------------modal 2 Ajout photo----------------------------->
+                <!--/*************************** modal-2 Ajouter une photo ***********************/-->
 
-                <div class="modalBody modalBodyAddPicture" id="pictureForm">
+                <div class="modalBody modalBodyAddPicture" id="modalAdd">
                     <div class="addPicture">
-                        <label class="picture">
+                        <label class="imageLabel">
                             <img src="./assets/icons/picture.svg"
                                  alt=""><br>
                             <span class="addPictureButton">+ Ajouter photo</span>
-                            <input type="file" id="photo" name="+ Ajouter photo" accept="image/*" style="display: none"><br>
+                            <input type="file" id="image" name="+ Ajouter photo" accept="image/*" style="display: none"><br>
                             <span> jpg, png : 4mo max </span>
                         </label>
                         <img id="imagePreview" src="" alt="Aperçu de l'image">
@@ -135,22 +135,21 @@
                     <button class="modalButton" id="addModalButton">Ajouter une photo</button>
                 </div>
 
-                <!--/**************************** Fin modal2 ***************************-->
+                <!--/**************************** Fin modal-2 ***************************-->
             </div>
         </div>
 
-
         <!--*************************** Fin code des modals ******************************************/-->
 
-        </main>
+    </main>
 </div>
-    <footer>
-        <nav>
-            <ul>
-                <li>Mentions Légales</li>
-            </ul>
-        </nav>
-    </footer>
+<footer>
+    <nav>
+        <ul>
+            <li>Mentions Légales</li>
+        </ul>
+    </nav>
+</footer>
 
 </body>
 </html>

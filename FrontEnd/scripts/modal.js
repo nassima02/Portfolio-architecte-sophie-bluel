@@ -1,75 +1,139 @@
+/**
+ * l'import des deux fonctions, fetchWorks et generateWorksInHtml du fichier "./works.js"
+ */
 import {fetchWorks, generateWorksInHtml} from "./works.js";
 
-/********************************
- Création de la fenêtre modal
- *********************************/
-//selection du lien de l'ouverture de la modal "modifier"
+/**
+ * Récupération des éléments du DOM 
+ */
 const editLink = document.getElementById('edit');
-
-// Sélection de la fenêtre modale
 const modal = document.getElementById('myModal');
 
-//Sélection du button de validation de la modal
-const validateModalBtn = document.getElementById('validateModalButton')
+//Les elements HTML de la modal-1 "Galerie photo"
+const modalGalleryImage = document.getElementById("modalGallery");
+const galleryModal = document.querySelector(".modalBody");
+const addButton = document.getElementById("addModalButton");
+const modalTitle1 = document.getElementById("modalTitle1");
 
-//Sélection du button d'ajout d'une image de la modal
-const addModalBtn = document.getElementById("addModalButton")
+//Les elements HTML de la modal-2 "Ajout photo"
+const modalAddImage = document.getElementById('modalAdd');
+const previousBtn = document.querySelector('.arrowBack');
+const closeBtn = document.querySelector('.close');
+const imageField = document.querySelector(".imageLabel");
+const imagePreview = document.getElementById('imagePreview');
+const validateModalBtn = document.getElementById('validateModalButton');
+const modalTitle2 = document.getElementById("modalTitle2");
 
-//Sélection de la flèche pour le retour en arrière de la modal
-const arrow = document.querySelector('.arrowBack')
+// les elements HTML du formulaire d'ajout d'une image
+const imageInput = document.getElementById('image');
+const titleInput = document.getElementById("title");
+const categorySelect = document.getElementById("category");
 
-//Sélectionner la modal2 "Ajouter une image"
-const modalAdd = document.getElementById('pictureForm')
-
-
-// Ouvrertur de la fenêtre modale1 "Gallerie photo"  lors du clic sur le lien "modifier"
+/**
+ * Ouverture de la fenêtre modal1 "Galerie photo" lors du clic sur le lien "modifier"
+ */
 editLink.addEventListener('click', (event) => {
     event.preventDefault();
     modal.style.display = 'flex';
-    validateModalBtn.style.display = 'none'
-    arrow.style.display = 'none'
-    modalAdd.style.display = 'none'
+    validateModalBtn.style.display = 'none';
+    previousBtn.style.display = 'none';
+    modalAddImage.style.display = 'none';
 });
-/*************************************************
- Affichage des photos dans  la modal galerie photo
- **************************************************/
 
-const galeryModal = document.querySelector(".modalBody")
+/**
+ * Ouverture de la modal 2 en cliquant sur le bouton "Ajouter une photo"
+ */
+addButton.addEventListener('click', () => {
 
-const worksModal = await fetchWorks()
-worksModal.forEach(workModal => {
+    addButton.style.display = 'none';
+    modalGalleryImage.style.display = 'none';
+    imagePreview.style.display = 'none';
+    previousBtn.style.display = 'flex';
+    modalAddImage.style.display = 'flex';
+    validateModalBtn.style.display = 'block';
+    modalTitle1.style.display = 'none'
+    modalTitle2.style.display = 'flex'
+    imageField.style.display = 'flex';
+});
 
-    const figureModal = document.createElement("figure")
-    const imageModal = document.createElement('img')
-    const trashIcon = document.createElement('i');
+/**
+ * Fermeture de la fenêtre modal lors du clic sur la croix
+ */
+closeBtn.addEventListener('click', closeModal);
 
-    figureModal.id = `modalWorkFigure_${workModal.id}`;
+/**
+ * Fermeture de la fenêtre modale lorsque l'utilisateur clique en dehors de celle-ci
+ */
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        closeModal ()
+    }
+});
 
-    imageModal.src = workModal.imageUrl
-    imageModal.alt = workModal.name
-    // imageModal.id = workModal.id
+/**
+ * Cette fonction mis a jour la modale apres sa fermeture
+ */
+function closeModal (){
+    modal.style.display = 'none';
+    validateModalBtn.style.display = 'none';
+    previousBtn.style.display = 'none';
+    modalAddImage.style.display = 'none';
+    modalGalleryImage.style.display = 'grid';
+    addButton.style.display = 'block';
+    imageField.style.display = 'none';
+}
+/**
+ * le retour en arrière quand on clique sur la flèche
+ */
+previousBtn.addEventListener('click', () => {
+    closeModal ()
+    modal.style.display = 'flex';
+    modalTitle1.style.display = 'flex'
+    modalTitle2.style.display = 'none'
+});
 
-    trashIcon.className = "fa-solid fa-trash-can trash-icon"
+/**
+ * Affichage des photos dans la modal "Galerie photo"
+*/
+let worksModal = await fetchWorks();
 
-    figureModal.appendChild(imageModal)
-    figureModal.appendChild(trashIcon)
-    galeryModal.appendChild(figureModal)
+function generateWorkModal(works) {
+    galleryModal.innerHTML = '';
 
+    works.forEach(work => {
 
-    // Ajoutez un écouteur d'événements au clic sur l'icône de la corbeille
-    trashIcon.addEventListener("click", () => {
-        deletePicture(workModal.id)
-    })
-})
+        const figureModal = document.createElement("figure");
+        const imageModal = document.createElement('img');
+        const trashIcon = document.createElement('i');
 
-/************************************************
- Suppression d'une photo de la galerie modal
- ***********************************************/
+        figureModal.id = `modalWorkFigure_${work.id}`;
+
+        imageModal.src = work.imageUrl;
+        imageModal.alt = work.name;
+
+        trashIcon.className = "fa-solid fa-trash-can trash-icon";
+
+        figureModal.appendChild(imageModal);
+        figureModal.appendChild(trashIcon);
+        galleryModal.appendChild(figureModal);
+
+        // Ajouter un écouteur d'événements au clic sur l'icône de la corbeille
+        trashIcon.addEventListener("click", () => {
+            deletePicture(work.id);
+        });
+    });
+}
+
+generateWorkModal(worksModal);
+
+/**
+ * Suppression d'une photo de la modal "Galerie photo"
+ */
 function deletePicture(id) {
     const token = localStorage.getItem("token");
     const figureModal = document.getElementById(`modalWorkFigure_${id}`);
 
-    // Envoyez une requête DELETE à l'API pour supprimer la photo
+    // Envoyer une requête DELETE à l'API pour supprimer la photo
     fetch(`http://localhost:5678/api/works/${id}`, {
         method: 'DELETE',
         headers: {
@@ -79,13 +143,13 @@ function deletePicture(id) {
     })
         .then(async response => {
             if (response.ok) { // La photo a été supprimée avec succès
-                figureModal.remove(); // Supprimez l'élément de la galerie
-                // Supposons que worksModal contienne toutes les images actuelles
-                const newAllWorks = worksModal.filter((w) => w.id !== id);
-                updateHomePageGallery(newAllWorks);
+                figureModal.remove(); // Supprimer l'élément de la galerie
+                //  worksModal contienne toutes les images actuelles
+                worksModal = worksModal.filter((w) => w.id !== id);
+                generateWorksInHtml(worksModal);
                 alert("Votre image a bien été supprimée !");
             } else {
-                console.error("Échec de la suppression de la photo"); // Gestion des erreurs si la suppression a échoué
+                console.error("Échec de la suppression de la photo");
             }
         })
         .catch(error => {
@@ -93,91 +157,31 @@ function deletePicture(id) {
         });
 }
 
-/*******************************
- Fermeture de la fenêtre modal
- *******************************/
+/**
+ * Cette fonction vérifie si les 3 champs du formulaire d'ajout d'une photo
+ * sont bien remplis et active le bouton "Valider". *
+ */
+function updateValidateButton() {
 
-// Sélection de l'élément de fermeture (la croix)
-const closeBtn = document.querySelector('.close');
+    const imageSelected = imageInput.files.length > 0;
+    const titleFilled = titleInput.value.trim() !== "";
+    const categorySelected = categorySelect.value !== "";
 
-// Fermeture de la fenêtre modale lors du clic sur la croix
-closeBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-    validateModalBtn.style.display = 'none';
-    arrow.style.display = 'none';
-    modalAdd.style.display = 'none';
-    modal1.style.display = 'grid';
-    addModalBtn.style.display = 'block';
-    picture.style.display = 'none';
-
-    // Appelez la fonction pour mettre à jour la page d'accueil
-    updateHomePageGallery(w); // Assurez-vous que w est défini
-});
-// Fermeture de la fenêtre modale lorsque l'utilisateur clique en dehors de celle-ci
-window.addEventListener('click', (event) => {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-
-        // Appelez la fonction pour mettre à jour la page d'accueil
-        updateHomePageGallery(w); // Assurez-vous que w est défini
+    if (imageSelected && titleFilled && categorySelected) {
+        validateModalBtn.style.backgroundColor = "#1D6154";
+    } else {
+        validateModalBtn.style.backgroundColor = "#CBD6DC";
     }
-});
-
-// Fonction pour mettre à jour la page d'accueil
-function updateHomePageGallery(w) {
-    // Vous pouvez insérer ici le code pour mettre à jour la galerie sur la page d'accueil.
-    // Par exemple, si vous avez une fonction pour générer les éléments de galerie, appelez-la ici.
-    generateWorksInHtml(w); // Assurez-vous que generateWorksInHtml est définie
 }
-/********************************************************************
- Ouvertur de la modale 2 en cliquant sur le button "Ajouter une photo"
- ********************************************************************/
 
-//récuper de la modale1
-const modal1 = document.getElementById("modalGallery")
-
-//récuper le label d'ajout de photo
-const picture = document.querySelector(".picture")
-
-//récuper le champ d'affichage d'image
-const imagePreview = document.getElementById('imagePreview')
-
-addModalBtn.addEventListener('click', () => {
-
-    addModalBtn.style.display = 'none'
-    modal1.style.display = 'none'
-    imagePreview.style.display = 'none'
-    arrow.style.display = 'flex'
-    modalAdd.style.display = 'flex'
-    validateModalBtn.style.display = 'block'
-    picture.style.display = 'flex'
-})
-
-/**********************************************************************
- Ajouter un ecouteur d'evenement de la flèche pour le retour en arrière
- **********************************************************************/
-arrow.addEventListener('click', (event) => {
-
-    modal.style.display = 'flex';
-    validateModalBtn.style.display = 'none'
-    arrow.style.display = 'none'
-    modalAdd.style.display = 'none'
-    modal1.style.display = 'grid'
-    addModalBtn.style.display = 'block'
-    picture.style.display = 'none'
-})
-
-/********************************************************
- Afficher  la deuxième modal pour l'ajout des travaux
- ********************************************************/
-//Récuperer l'input pour l'ajout d'un fichier
-const imageInput = document.getElementById('photo');
-//const imagePreview = document.getElementById('image-preview'); // Assurez-vous que cette ligne est correcte
+/**
+ * vérifier si le fichier selectionné est conforme au format et taille indiquer
+ */
 
 imageInput.addEventListener('change', onChangeInputFile);
 
 function onChangeInputFile(event) {
-    picture.style.display = 'none'; // Le label contenant le bouton d'ajout d'image est masqué
+    imageField.style.display = 'none'; // Le label contenant le champ d'ajout d'image est masqué
     const file = event.target.files[0];
 
     if (!file.type.startsWith("image/")) {
@@ -187,9 +191,8 @@ function onChangeInputFile(event) {
     if (file.size > 4 * 1024 * 1024) { // Vérifie que la taille du fichier est inférieure à 4 Mo
         alert("Image très volumineuse. Veuillez choisir une autre image.");
         // Réinitialiser l'input file pour permettre à l'utilisateur de sélectionner à nouveau une image
-       // imageInput.value = '';
         imagePreview.style.display = 'none';
-        picture.style.display = 'flex';
+        imageField.style.display = 'flex';
         return;
     }
 
@@ -197,113 +200,121 @@ function onChangeInputFile(event) {
     imagePreview.src = URL.createObjectURL(file);
 }
 
-/****************************************************
- Activer le boutton Valider pour l'ajout d'une image
- ****************************************************/
-async function initializeModal() {
+/**
+ * Activer le bouton "Valider" pour l'ajout d'une image *
+ */
 
-    const imageInput = document.getElementById("photo");
-    const titleInput = document.getElementById("title");
-    const categorySelect = document.getElementById("category");
-    const validateButton = document.getElementById("validateModalButton");
+// Ajout des gestionnaires d'événements
+imageInput.addEventListener("change", updateValidateButton);
+titleInput.addEventListener("input", updateValidateButton);
+categorySelect.addEventListener("change", updateValidateButton);
+validateModalBtn.addEventListener("click", handleValidateButtonClick);
 
-// Ajoutez des gestionnaires d'événements pour surveiller les changements dans les champs
-    imageInput.addEventListener("change", updateValidateButton);
-    titleInput.addEventListener("input", updateValidateButton);
-    categorySelect.addEventListener("change", updateValidateButton);
+updateValidateButton(); // Appel de la fonction pour définir l'état initial du bouton Valider
 
-    function updateValidateButton() {
-        // Vérifiez si les trois champs sont remplis
-        const imageSelected = imageInput.files.length > 0;
-        const titleFilled = titleInput.value.trim() !== "";
-        const categorySelected = categorySelect.value !== "";
-
-        // Activez le bouton Valider si tous les champs sont remplis, sinon désactivez-le
-        if (imageSelected && titleFilled && categorySelected) {
-            validateButton.style.backgroundColor = "#1D6154";
-        } else {
-            validateButton.style.backgroundColor = "#CBD6DC";
-        }
+/*****************************************************************
+ * Cette fonction vérifie la validité des données avant le POST.
+ *
+ * @param {string} token - Le jeton d'authentification de l'utilisateur.
+ * @param {string} title - Le titre à valider.
+ * @param {string} image -  l'image à valider.
+ * @param {number} categoryId - ID de la catégorie à valider.
+ *
+ * @returns {boolean} Renvoie vrai si les données sont valides, sinon faux.
+ *****************************************************************/
+function validateData(token, title, image, categoryId) {
+    if (!token) {
+        alert("Veuillez vous connecter pour effectuer cette opération.");
+        return false;
     }
 
-// Appelez la fonction initiale pour définir l'état initial du bouton Valider
-    updateValidateButton();
+    if (!title) {
+        alert("Veuillez entrer un titre.");
+        return false;
+    }
 
+    if (!image) {
+        alert("Veuillez sélectionner une photo.");
+        return false;
+    }
 
-    validateButton.addEventListener("click", function () {
-        const token = localStorage.getItem("token");
+    if (!categoryId) {
+        alert("Veuillez sélectionner une catégorie.");
+        return false;
+    }
 
-        const title = titleInput.value.trim();
-        const image = imageInput.files[0];
-        const categoryId = parseInt(categorySelect.value);
-
-        console.log('categoryId', categoryId)
-
-        // vérifications de la présence des données
-        if (!token) {
-            alert("Veuillez vous connecter pour effectuer cette opération.");
-            return
-        }
-
-        if (!title) {
-            alert("Veuillez entrer un titre.");
-            return
-        }
-
-        if (!image) {
-            alert("Veuillez sélectionner une photo.");
-            return
-        }
-
-        if (!categoryId) {
-            alert("Veuillez sélectionner une catégorie.");
-            return
-        }
-
-        const formData = new FormData();
-        formData.append("image", image);
-        formData.append("title", title);
-        formData.append("category", categoryId)
-
-        fetch("http://localhost:5678/api/works", {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            body: formData
-        })
-            .then(async (response) => {
-
-                if (!response.ok) {
-                    alert("Erreur lors de l'ajout de la photo.");
-                }
-
-                alert("Photo ajoutée avec succès !");
-
-                // Réinitialisez les champs après l'ajout réussi
-                titleInput.value = "";
-                categorySelect.value = "";
-                imageInput.value = "";
-                imagePreview.style.display = 'none'
-                picture.style.display = 'flex'
-                updateValidateButton(); // Rétablissez la couleur du bouton
-
-               //const  worksModal = await fetchWorks()
-//console.log ("works",worksModal)
-                // Appelez updateHomePageGallery avec worksModal mis à jour
-                // updateHomePageGallery(worksModal);
-
-
-               return fetchWorks();
-            }).then((worksModal) => {
-                updateHomePageGallery(worksModal);
-            })
-            .catch((error) => {
-                console.error("Erreur de réseau :", error);
-            });
-    });
-
-
+    return true;
 }
 
-initializeModal();
+/**
+ * Cette fonction gère le clic sur le bouton "Valider".
+ * Elle extrait les données du formulaire (jeton, titre, image, catégorie),
+ * valide les données, envoie une requête POST au serveur, gère la réponse
+ * et effectue des actions en conséquence (comme réinitialiser les champs).
+ */
+async function handleValidateButtonClick() {
+    const token = localStorage.getItem("token");
+    const title = titleInput.value.trim();
+    const image = imageInput.files[0];
+    const categoryId = parseInt(categorySelect.value);
+
+    if (validateData(token, title, image, categoryId)) {
+        await postData(token, title, image, categoryId);
+
+        alert("Photo ajoutée avec succès !");
+        resetFieldsAndButtons(titleInput, categorySelect, imageInput, imagePreview, imageField);
+        worksModal = await fetchWorks();
+        generateWorksInHtml(worksModal);
+        generateWorkModal(worksModal);
+    }
+}
+
+/**
+ * Cette fonction envoie une requête POST avec les données du formulaire.
+ * Elle extrait les données du formulaire (jeton, titre, image, catégorie),
+ * envoie la requête POST au serveur, gère la réponse, et effectue des actions
+ * en conséquence (comme réinitialiser les champs et afficher des alertes).
+ */
+async function postData(token, title, image, categoryId) {
+
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", title);
+    formData.append("category", categoryId);
+
+    try {
+        const response = await fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            body: formData,
+        });
+
+        if (!response.ok) {
+            alert("Erreur lors de l'ajout de la photo.");
+        }
+    } catch (error) {
+        console.error("Erreur de réseau :", error);
+    }
+}
+
+/********************************************************************
+ * Cette fonction réinitialise les champs après l'ajout d'un fichier.
+ *
+ * @param {HTMLInputElement} titleInput - L'élément d'entrée pour le titre.
+ * @param {HTMLSelectElement} categorySelect - L'élément de sélection pour la catégorie.
+ * @param {HTMLInputElement} imageInput - L'élément d'entrée de type fichier pour les images.
+ * @param {HTMLElement} imagePreview - L'élément pour l'aperçu de l'image.
+ * @param {HTMLElement} imageField - L'élément contenant l'image.
+ ********************************************************************/
+function resetFieldsAndButtons(titleInput, categorySelect, imageInput, imagePreview, imageField) {
+    titleInput.value = "";
+    categorySelect.value = "";
+    imageInput.value = "";
+    imagePreview.style.display = 'none';
+    imageField.style.display = 'flex';
+    updateValidateButton();
+}
+
+

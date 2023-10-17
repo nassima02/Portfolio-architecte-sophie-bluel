@@ -1,15 +1,31 @@
+/**
+ * Récupération des éléments du DOM
+ * @type {HTMLElement}
+ */
 const loginForm = document.getElementById("loginForm");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const message = document.getElementById("message");
 
+/**
+ * Cet objet contient des messages d'erreur qui seront affichés en fonction du code d'état
+ * de la réponse HTTP renvoyée par le serveur lors de la tentative de connexion.
+ */
+const errorMessages = {
+    401: "Le mot de passe est incorrect. Veuillez réessayer.",
+    404: "l'adresse mail ou le mot de passe est incorrect. Veuillez réessayer.",
+    other: "Une erreur s'est produite lors de la connexion. "
+};
+
+/**
+ * // L'écoute de l'événement de soumission du formulaire
+ */
 loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const email = emailInput.value;
     const password = passwordInput.value;
 
-    // Envoyer une requête POST à l'API pour la connexion
     try {
         const response = await fetch("http://localhost:5678/api/users/login", {
             method: "POST",
@@ -20,21 +36,17 @@ loginForm.addEventListener("submit", async function (event) {
         });
 
         if (response.ok) {
-            // Connexion réussie, récupérez le token
             const data = await response.json();
             const token = data.token;
 
-            // Stockez le jeton dans le local storage
             localStorage.setItem("token", token);
 
-            // Redirigez l'utilisateur vers la page "index.html" en mode édition
-            window.location.href = "index.html";
+            window.location.href = "index.html"; //Rediriger l'utilisateur vers la page d'acceuil en mode edition
+
         } else {
-            // Affichez un message d'erreur en cas d'échec de la connexion
-            message.textContent = "Votre identifiant ou mot de passe est incorrect. Veuillez réessayer.";
-            localStorage.removeItem("token");
+            message.textContent = errorMessages[response.status] || errorMessages.other;
         }
     } catch (error) {
-        console.error("Une erreur s'est produite lors de la connexion :", error);
+        console.error(error);
     }
 });
