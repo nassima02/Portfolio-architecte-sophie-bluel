@@ -7,7 +7,7 @@ const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const message = document.getElementById("message");
 
-/**
+/*
  * Cet objet contient des messages d'erreur qui seront affichés en fonction du code d'état
  * de la réponse HTTP renvoyée par le serveur lors de la tentative de connexion.
  */
@@ -17,8 +17,8 @@ const errorMessages = {
     other: "Une erreur s'est produite lors de la connexion. "
 };
 
-/**
- * // L'écoute de l'événement de soumission du formulaire
+/*
+ * L'écoute de l'événement de soumission du formulaire
  */
 loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -41,7 +41,7 @@ loginForm.addEventListener("submit", async function (event) {
 
             localStorage.setItem("token", token);
 
-            window.location.href = "index.html"; //Rediriger l'utilisateur vers la page d'acceuil en mode edition
+            window.location.href = "index.html"; //Rediriger l'utilisateur vers la page d'accueil en mode edition
 
         } else {
             message.textContent = errorMessages[response.status] || errorMessages.other;

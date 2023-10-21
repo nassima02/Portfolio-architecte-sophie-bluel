@@ -1,30 +1,35 @@
-/**
- *stoker l'url de l'API works dans la constante urlApi
+/*
+ * Stockage de  l'URL de l'API works dans la constante urlApi
  **/
 const urlApi = "http://localhost:5678/api/works";
 
-/**
- * Initialise la page d'accueil en fonction de l'état de connexion de l'utilisateur.
+/*
+ * Appel de la fonction  initHomepage() pour l'affichage de la page d'accueil
  */
-export async function initHomepage() {
+initHomepage();
+
+/*
+ * Cette fonction affiche la page d'accueil en fonction de l'état de connexion de l'utilisateur.
+ */
+async function initHomepage() {
 
     const allWorks = await fetchWorks();// Récupère tous les travaux depuis l'API works.
-    const token = localStorage.getItem("token");// Récupère le token d'authentification stocké localement.
+    const token = localStorage.getItem("token");
 
-    generateWorksInHtml(allWorks);// Génère le contenu HTML pour afficher tout les travaux dans la galerie.
+    generateWorksInHtml(allWorks);// Génère le contenu HTML pour afficher tous les travaux dans la galerie.
 
     if (token) {
-        showBanner(); // Si l'utilisateur est connecté (un token est présent), affiche la bannière.
+        showBanner();
         toggleLoginLogout();// Appelle la fonction pour gérer l'état de connexion (login/logout).
 
     } else {
-        hideBanner();// Si l'utilisateur n'est pas connecté (pas de token), masque la bannière.
+        hideBanner();
         generateFilterCategories(allWorks); // Affiche le filtre des catégories des travaux.
     }
 }
 
-/**
- * Affiche la bannière et le lien vers la modale.
+/*
+ * Cette fonction affiche la bannière et le lien vers la modale.
  */
 function showBanner() {
 
@@ -35,8 +40,8 @@ function showBanner() {
     modalLink.style.display = 'flex';
 }
 
-/**
- * Masque la bannière et et le lien vers la modale.
+/*
+ * Cette fonction masque la bannière et le lien vers la modal1.
  */
 function hideBanner() {
 
@@ -47,29 +52,26 @@ function hideBanner() {
     modalLink.style.display = 'none';
 }
 
-/**
- * Bascule entre les états de connexion (login/logout) en fonction de la présence du token d'authentification.
+/*
+ * Cette fonction bascule entre les états de connexion (login/logout) en fonction de la présence du token d'authentification.
  */
 function toggleLoginLogout() {
 
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
     const buttonLoginLogout = document.getElementById('loginLogout');
 
     if (token) {
-        // Si connecté, changez le texte en "logout"
         buttonLoginLogout.textContent = "logout";
         buttonLoginLogout.href = "./index.html";
         buttonLoginLogout.addEventListener('click', (event) => {
             event.preventDefault();
             localStorage.removeItem('token');
             window.location.href = "index.html";
-            // window.location.reload();
         })
     } else {
         // Si non connecté, laissez le texte comme "login" avec le lien d'origine
         buttonLoginLogout.textContent = "login";
         buttonLoginLogout.href = "./login.html";
-        localStorage.removeItem("token");
     }
 }
 
@@ -77,7 +79,7 @@ function toggleLoginLogout() {
  * Cette fonction Récupère les travaux à partir d'une API en utilisant la fonction fetch.
  * @async
  * @function fetchWorks
- * @param {string} - L'URL de l'API à partir de laquelle les travaux sont récuperé.
+ * @param {string} - L'URL de l'API à partir de laquelle les travaux sont récupérés.
  * @returns {Promise<Array>} Une promesse résolue avec un tableau d'objets représentant les travaux de l'architecte.
  */
 export async function fetchWorks() {
@@ -122,7 +124,7 @@ export function generateWorksInHtml(works) {
 }
 
 /**
- * Cette fonction effectue le tri des travaux par cétégorie et retourne au tableau de catégories.
+ * Cette fonction effectue le tri des travaux par catégorie et retourne un tableau de catégories.
  * @function generateFilterCategories
  * @param {Array} works - Un tableau contenant les travaux.
  */
@@ -137,7 +139,7 @@ function generateFilterCategories(works) {
 /**
  * Cette fonction Affiche les boutons de catégorie dans la page web.
  * @function afficherButtonCategorie
- * @param {Array} listWorksCategory - Un tableau contenant les nom des catégories des travaux
+ * @param {Array} listWorksCategory - Un tableau contenant les noms des catégories des travaux
  */
 function generateButtonCategory(listWorksCategory) {
 
@@ -155,9 +157,9 @@ function generateButtonCategory(listWorksCategory) {
 }
 
 /**
- * Cette fonction crée un boutton de catégorie.
+ * Cette fonction crée un bouton de catégorie.
  * @function createCategoryButton
- * @param {string} categoryName - Le nom du boutton de la catégorie.
+ * @param {string} categoryName - Le nom du bouton de la catégorie.
  */
 function createCategoryButton(categoryName) {
 
@@ -168,22 +170,21 @@ function createCategoryButton(categoryName) {
     }
 
     buttonCategory.innerText = categoryName;
-    buttonCategory.dataset.category = categoryName
+    buttonCategory.dataset.category = categoryName;
     buttonCategory.type = "button";
     return buttonCategory;
 }
 
-/**
+/*
  * Cette fonction ajoute un gestionnaire d'événement 'click' à tous les boutons de catégorie.
  * Lorsqu'un bouton est cliqué, il appelle la fonction onClickButtonCategory.
- * @function selectedCategoryButton
  */
 function selectedCategoryButton() {
 
     const categoryButtons = document.querySelectorAll('.filter button');
 
     categoryButtons.forEach(button => {
-        button.addEventListener('click', onClickButtonCategory)
+        button.addEventListener('click', onClickButtonCategory);
 
     });
 }
@@ -199,7 +200,7 @@ function onClickButtonCategory(event) {
 
     const categoryButtons = document.querySelectorAll('.filter button');
     const button = event.target;
-    const wCategory = button.dataset.category
+    const wCategory = button.dataset.category;
 
     button.classList.toggle('selected');
 
@@ -208,13 +209,13 @@ function onClickButtonCategory(event) {
             btn.classList.remove('selected');
         }
     });
-    generateWorksCategories(wCategory)
+    generateWorksCategories(wCategory);
 }
 
 /**
  * Cette fonction génère le contenu HTML des travaux en fonction de la catégorie sélectionnée.
  * @function generateWorksCaterogies
- * @param {string} wCategory - Le nom de la catégorie selectionnée.
+ * @param {string} wCategory - Le nom de la catégorie sélectionnée.
  */
 function generateWorksCategories(wCategory) {
 
@@ -231,7 +232,7 @@ function generateWorksCategories(wCategory) {
                 });
                 break;
         }
-        generateWorksInHtml(filteredWorks); // Génère le HTML à partir des travaux filtrés
+        generateWorksInHtml(filteredWorks); // Génère la page HTML à partir des travaux filtrés
     });
 }
 
